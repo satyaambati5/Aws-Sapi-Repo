@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>6f87efac-88e4-418e-bb16-90e5a475841e</groupId>
+  <artifactId>aws-sapi</artifactId>
+  <version>1.0.2</version>
+  <name>aws-sapi</name>
+  <properties>
+    <classifier>raml</classifier>
+    <main>aws-sapi.raml</main>
+    <status>published</status>
+    <originalFormatVersion>1.0</originalFormatVersion>
+    <apiVersion>v1</apiVersion>
+    <projectId>12b04547-c928-4755-bd89-60945a1a613c</projectId>
+    <branchId>master</branchId>
+    <commitId>871ccf1b51a61e693036c614f723442a60f5b583</commitId>
+    <keywords/>
+    <type>rest-api</type>
+    <mainFile>aws-sapi.raml</mainFile>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>org.mule.examples</groupId>
+      <version>1.0.0</version>
+      <type>zip</type>
+      <classifier>raml-fragment</classifier>
+      <artifactId>basic-auth-securityscheme</artifactId>
+    </dependency>
+  </dependencies>
+  <repositories>
+    <repository>
+      <id>anypoint-exchange</id>
+      <url>https://maven.anypoint.mulesoft.com/api/v3/maven</url>
+    </repository>
+  </repositories>
+</project>

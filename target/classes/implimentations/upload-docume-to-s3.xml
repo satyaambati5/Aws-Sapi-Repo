@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:s3="http://www.mulesoft.org/schema/mule/s3" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/s3 http://www.mulesoft.org/schema/mule/s3/current/mule-s3.xsd">
+<flow name="post:\dcoument:aplication\json:aws-sapi-config">
+        <ee:transform doc:name="Transform Message" doc:id="ec8f58c5-2799-4b1e-905d-e39e3f84841f" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{}]]></ee:set-payload>
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="corelationid" ><![CDATA[%dw 2.0
+output application/java
+---
+attributes.headers.'x-correlation-id' default payload.fileName]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<logger level="INFO" doc:name="Start Logger" doc:id="06b844b2-1a5e-436e-a0fe-eb64cf767922" message="Upload has started, #[vars.transactionid]"/>
+		<s3:create-object-presigned-url doc:name="Create Object Presigned Url" doc:id="90c4c446-47ac-4fbd-8bcf-4400ef003747" />
+		<ee:transform doc:name="Set Response">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  code: 200,
+  message: "Success",
+  description: "Document uploaded successfully",
+  dateTime: now() as String {format :"yyyy-MM-dd'T'HH:mm:ss'Z'"},
+  transactionId: vars.transactionid
+  
+  }]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+		<logger level="INFO" doc:name="End Logger" doc:id="2cb61cfc-f688-4961-93a0-58eeb8f452c7" message="Message: Document uploaded to s3, transactionid: #[vars.transactionid], Corelationid: #[vars.corelationid]"/>
+    
+</flow>
+</mule>
